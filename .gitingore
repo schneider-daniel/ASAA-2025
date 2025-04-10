@@ -11,6 +11,7 @@
 *.png
 *.avi
 *.mp4
+!video/output_video_2.mp4
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
