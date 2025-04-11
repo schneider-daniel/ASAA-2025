@@ -69,7 +69,30 @@ T_cam_to_vehicle(1:3,4) = t;
 
 T_vehicle_to_cam = inv(T_cam_to_vehicle);  % camera pose in vehicle frame
 
-% Draw Camera frame
+
+%% Drawings
+% Rear axle
+axle_half_width = 0.8;  % in meters, adjust if needed
+
+% Coordinates of left and right wheel positions on the axle (at z = 0)
+rear_axle_pts = [
+    0, -axle_half_width, 0;  % left wheel contact
+    0,  axle_half_width, 0   % right wheel contact
+    ];
+
+% Draw the axle as a black line
+plot3(rear_axle_pts(:,1), rear_axle_pts(:,2), rear_axle_pts(:,3), ...
+    'k-', 'LineWidth', 2);
+
+% Optional: mark wheels with small circles
+plot3(rear_axle_pts(:,1), rear_axle_pts(:,2), rear_axle_pts(:,3), ...
+    'ko', 'MarkerSize', 6, 'MarkerFaceColor', 'k');
+
+% Label the axle
+text(0, 0, 0.05, 'Rear Axle', 'FontSize', 10, 'Color', 'k');
+
+
+% Camera frame
 draw_frame(T_vehicle_to_cam, 'Camera', 0.3);
 
 % Draw translation vector (gray dashed line)
@@ -85,5 +108,5 @@ midpoint = (origin_vehicle + origin_cam) / 2;
 text(midpoint(1), midpoint(2), midpoint(3), ...
     'Camera Translation', 'Color', [0.4 0.4 0.4], 'FontSize', 10);
 
-% Optional: image plane
+% Image plane
 draw_image_plane(T_vehicle_to_cam, 0.05);
